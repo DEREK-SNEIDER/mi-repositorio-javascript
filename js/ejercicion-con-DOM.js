@@ -104,6 +104,8 @@ function init() {
 window.onload = init;
 */
 
+
+/*
 /// producto para la comida  ////
 const listaComida = [
     {
@@ -211,9 +213,107 @@ function agregarComida() {
         listaComida.push(nuevaComida)
     }
 }
+*/
 
 
 
 
+/// midificacion de DOM  ////
+
+//Definición de clases, esto en un futuro va en otros archivos
+class FormData {
+    constructor(name, city, phone, PostalCode,) {
+        this.name = name
+        this.surname = city
+        this.phone = phone
+        this.pass = PostalCode
+    }
+
+    getValue(field) {
+        let value = "";
+        switch (field) {
+            case "Nombre":
+                value = this.name
+                break;
+            case "Ciudad":
+                value = this.surname
+                break;
+            case "Teléfono":
+                value = this.phone
+                break;
+            case "Codigopostal":
+                value = this.pass
+                break;
+
+        }
+        return value
+    }
+}
+
+//Definición de mis objetos
+const datosControlado = new FormData()
+
+//Definición de mis elementos de DOM
+const formControlado = document.getElementById("formControlado")
+
+const submitControlado = document.getElementById("controlAccept")
+
+const repPassword = document.querySelectorAll(".repass")
+
+//Definición de mis eventos
+
+formControlado.addEventListener("input", handleInputControl)
+formControlado.addEventListener("submit", handleSubmitControl)
+
+repPassword.forEach((field) => { field.addEventListener("blur", handleBlur) })
+
+//Funciones de mis eventos
+
+//Ahora vamos con las funciones de los form controlados
+
+function handleSubmitControl(event) {
+    console.log(datosControlado)
+}
 
 
+function handleInputControl(event) {
+    //console.log(event)
+    //console.log(event.target)
+    //console.log(event.target.placeholder)
+    event.preventDefault()
+
+    const id = event.target.placeholder
+    const value = event.target.value
+
+    switch (id) {
+        case "Teléfono":
+            if (!isNaN(value) || value == "") {
+                // este codigo no me cuadra me puedes ayudar me arias el favor ///
+                datosControlado.setValue(value, id)
+                event.target.value = datosControlado.getValue(id)
+            } else if (datosControlado.getValue(id)) {
+                event.target.value = datosControlado.getValue(id)
+            } else {
+                event.target.value = ""
+            }
+            break;
+        case "Codigopostal":
+            event.target.type = "Codigopostal"
+            datosControlado.setValue(value, id)
+            event.target.value = datosControlado.getValue(id)
+    }
+}
+
+function handleBlur(event) {
+    //console.log(event.target.parentNode.id)
+    const id = event.target.parentNode.id
+    if (id == "formControlado") {
+        if (datosControlado.pass != datosControlado.repass) {
+            console.log("diferentes")
+            event.target.style.border = "1px solid red"
+        } else {
+            console.log("Iguales")
+            event.target.style.border = "0px solid black"
+        }
+    }
+}
