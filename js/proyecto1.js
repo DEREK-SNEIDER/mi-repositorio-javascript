@@ -1,3 +1,4 @@
+/*
 let nombre = "Arturo",
     edad = 18;
 
@@ -19,3 +20,11 @@ if (edad == 18) {
 
         alert(" Turno  N° " + i + " Nombre: " + ingresarNombre);
     } 
+*/
+
+
+
+
+
+
+

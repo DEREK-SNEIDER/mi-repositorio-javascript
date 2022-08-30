@@ -68,7 +68,7 @@ if(encontrada) {
 console.log(encontrada); 
 
 */
-
+/*
 // EJERCICIO #3
 const ciudades = [
     {
